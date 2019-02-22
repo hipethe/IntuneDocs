@@ -1410,6 +1410,27 @@ You can now use Intune App Policy Protection (APP) and Conditional Access (CA) t
 
 ## Notices
 
+### Check your “Delay Visibility of Software updates” setting in Intune 
+We shared in MC171466 that we were moving a few settings around in the console. With the March update to Intune, we'll completely remove the “Delay Visibility of Software updates” setting from the iOS update policy blade. This will not change the way your scheduled software updates apply but it may affect how long the visibility of an update is delayed for end users. You may need to take action before the end of March if you use this setting. 
+
+#### How does this affect me?
+After the February Intune service update, you’ll notice that the setting appears both in Device restriction profiles in the console and in iOS update policies in the Software update blade. When you see this change reflected in the console, here’s what you may need to do.
+• For existing Update policies for iOS: If you have custom configured this setting to anything other than the default 30 days, and want your existing configurations for the Delay visibility setting to continue to apply after the end of March, you’ll have to create a new iOS device restriction profile. Here, the Delay visibility setting will need to have the same values as in the existing iOS update policy and be targeted to the same groups. After the March service update, you will no longer be able to edit values for this setting in existing iOS update policies since it will no longer be visible in this blade. You will configure this setting in the new profiles instead.
+
+If the value for number of days you can delay visibility does not match in both locations for custom configured setting values, the Delay Visibility setting will not work, and end users will see the update on their devices as soon as it is available. This may have minimal impact for most customers since the other settings in the Software Update Policy blade have always taken precedence over this setting in the console.
+
+• For new update policies for iOS: If you try to create new policies in the Software updates blade after the Intune February service update, you will see this setting grayed out. You’ll see a note in the console redirecting you to the Device configuration blade if you wish to delay visibility of updates.
+
+#### What can I do to prepare for this change?
+You do not need to take action if you do not use this setting or do not want to delay visibility of software updates for your end users.
+If you wish to delay visibility of updates, start configuring the setting in new profiles in the Device Configuration blade under Device Restrictions > General. If you have this setting custom configured in existing iOS update policies, create a new equivalent device restriction profile with the same value for “days” to delay visibility of updates to your users, after the February update and before the March update rolls out. 
+You may want to update your IT Pro guidance and inform your helpdesk.
+See our support blog post at Additional Information for details on how to configure this setting.
+
+#### Additional Information 
+https://aka.ms/Delay_visibility_setting_iOS 
+
+
 ### Upcoming password enforcement change for macOS 10.14.2 in Intune <!--1873216-->
 We shared in MC145129 back in July that Intune plans to integrate Apple’s newly released “Change Password at Next Auth” setting for devices running macOS versions 10.13 and above. We currently plan to roll this setting out in February for macOS 10.14.2 and greater. 
 
@@ -1421,10 +1442,10 @@ Our customer research prior to implementing this change indicated most customers
 #### What can I do to prepare for this change?
 You may want to let your helpdesk know. We’ll update this What’s New page when this change is rolled out. If you do not want this macOS device password policy to be enforced, we recommend you un-assign or delete your existing macOS policy.
 
-###Plan for Change: Update to iOS setting for supervised devices in the Intune console  
+### Plan for Change: Update to iOS setting for supervised devices in the Intune console  
 With the February update to the Intune service, the 'Enabling restrictions in the device settings' setting for supervised iOS devices is being renamed to “Screen Time (supervised only)”. After this change, end user experience will change based on iOS version.
 
-####How does this affect me?
+#### How does this affect me?
 After the setting for “Enabling restrictions in the device settings (supervised only)” is renamed to “Screen Time (supervised only)”, here’s the experience for supervised devices (devices enrolled with Apple’s enrollment programs): 
 
 For devices on iOS 11.4 and prior: This setting can be used to prevent users from modifying device restrictions as before. End users will not see a change in experience.
@@ -1432,14 +1453,14 @@ For devices on iOS 11.4 and prior: This setting can be used to prevent users fro
 For devices on iOS 12 and later: End users will no longer see the Restrictions tab under Settings > General > Device Management > Management Profile > Restrictions.
 Instead, this will be a part of Settings > General > Screen Time. Configuring this setting to “Block” will block users from changing Screen Time settings on their devices, which also  includes content and privacy restrictions.
 
-####What can I do to prepare for this change?
+#### What can I do to prepare for this change?
 Update your end user guidance to note the change in experience for devices that are upgraded to iOS 12 and later versions.
 
 
-###Plan for Change: Workflow changes for iOS 12 enrollment in Intune
+### Plan for Change: Workflow changes for iOS 12 enrollment in Intune
 Apple has announced some changes related to iOS devices enrolling into Mobile Device Management (MDM) services. The change will likely be seen in the spring 2019 release of iOS as well as all future iOS releases.
 
-####How does this affect me?
+#### How does this affect me?
 If your end users upgrade their devices to this new version of iOS 12 in the spring, know that there is a modified workflow and they will need to take additional steps to complete enrollment into Intune. When Apple introduces these changes, end users will have to:
 •            Begin the enrollment process in the Company Portal app to download a management profile
 •            Go to Settings > General > Profiles
@@ -1449,13 +1470,14 @@ If your end users upgrade their devices to this new version of iOS 12 in the spr
 Devices that are already enrolled and upgrade to the new iOS release should not be affected unless they are unenrolled and need a fresh enrollment.
 Enrollment experience on devices running iOS 12.1 or prior will not change with this new release by Apple.
 
-####What can I do to prepare for this change?
+#### What can I do to prepare for this change?
 You should plan to upgrade your documentation and your end user guidance. You may also want to let your helpdesk know of these changes. We’ll keep you informed through the Message Center and our What’s New page when this change goes live.
 
 Click Additional Information for a support blog post with screenshots and a video of the expected enrollment flow.
 
-####Additional Information
+#### Additional Information
 https://aka.ms/iOS_enrollment_changes
+
 
 ### Plan for Change: User experience update to Intune Company Portal app for iOS
 We’re excited to share that Intune will soon be releasing a major user experience update to the iOS Company Portal app. The update will feature a visual redesign of the home page with advanced filters and faster access to apps and books.
@@ -1475,25 +1497,24 @@ You do not need to take any action; these changes will be released in an upcomin
 [https://aka.ms/cp_update_iOS](https://aka.ms/cp_update_iOS)
 
 
-### Plan for Change: Exchange Online to Intune connector will not be available in Intune <!-- 3105122 -->
-To simplify your experience with Exchange Online and Conditional Access, we will be disabling the Exchange Online to Intune ‘Service to Service’ connector.
-
+### Reminder: Removal of existing Exchange Online to Intune connectors
+We shared in MC165575 that we would be removing the Exchange Online to Intune ‘Service to Service’ connector functionality in an upcoming update. With the February update to the Intune service, we’ll disable the button to set up new connectors. We are planning to remove all existing Exchange Online to Intune connectors in March 2019.
+ 
 #### How does this affect me?
-You are receiving this message since our records indicate that you may be using the ‘Service to Service’ connector functionality in your environment. The ‘Service to Service’ connector supports Intune management of Exchange Active Sync Only devices for Exchange Online and does not support on-premises infrastructure. This connector, due to the way it displayed in the console, appears to be necessary for Conditional Access (CA), when in reality, it is not needed for CA. With the February update to the Intune service, to make this clear in the console, we’ll disable the button to set up new connectors. Then, in March 2019, all existing Exchange Online to Intune connectors will be disabled.
+You are receiving this message since our records indicate that you may be using the ‘Service to Service’ connector functionality in your environment. 
 
-If you use these connectors in your environment, you won’t be able to monitor or wipe Exchange Active Sync Only devices in Intune after connectors have been disabled in March. There is no anticipated impact to your end users during this change.
+The ‘Service to Service’ connector supports Intune management of Exchange Active Sync Only devices for Exchange Online and does not support on-premises infrastructure. This connector, due to the way it displayed in the console, appears to be necessary for Conditional Access (CA), when in reality, it is not needed for CA. You may have been using this connector to understand the usage of Exchange Online prior to applying Conditional Access. This information is already provided by the Microsoft 365 Admin Center. Here, you’ll find provides usage reports for Exchange Online including the app type being used for between 7 and 180 days. For more information see Office 365 Reports in the Admin Center - Email apps usage  
 
+If you use this connector in your environment, you won’t be able to monitor or wipe Exchange Active Sync Only devices in Intune after connectors have been disabled in February. There is no anticipated impact to your end users during this change.
+ 
 #### What can I do to prepare for this change?
-
 If you have the Service to Service connector set up and have Exchange Active Sync Only devices, switch to other methods of managing your devices. You have the following options:
-
-- Enroll devices in Mobile Device Management (MDM)
-- Use Intune App Protection Policies to manage your devices
-- Use Exchange controls as outlined in documentation here. 
-
+•	Enroll devices in Mobile Device Management (MDM) 
+•	Use Intune App Protection Policies to manage your devices
+•	Use Exchange controls as outlined in documentation here
+  
 #### Additional Information
-[Configure the Exchange service connector for Intune and Exchange Online](https://docs.microsoft.com/intune/exchange-service-connector-configure)
-
+https://docs.microsoft.com/intune/exchange-service-connector-configure
 
 
 ### Plan for change: Performance updates to Intune for Education <!--1750215-->
